@@ -1,0 +1,32 @@
+[package]
+name = "security"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+models = { path = "../Models" }
+models_settings = { path = "../Models_Settings"}
+utils = { path = "../Utils" }
+sea-orm = { workspace = true }
+serde = { workspace = true }
+actix-web = { workspace = true }
+actix-session = { workspace = true }
+async-std = { workspace = true }
+dotenvy = { workspace = true }
+once_cell = { workspace = true }
+tokio = { workspace = true }
+chrono = { workspace = true }
+tracing = { workspace = true }
+tracing-actix-web = { workspace = true }
+tracing-bunyan-formatter = { workspace = true }
+tracing-subscriber = { workspace = true }
+tracing-appender = { workspace = true }
+uuid = { workspace = true }
+openssl = { workspace = true }
+bcrypt = { workspace = true }
+
+[dependencies.sea-orm-migration]
+version = "0.12"
+features = ["runtime-tokio-rustls", "sqlx-postgres"]

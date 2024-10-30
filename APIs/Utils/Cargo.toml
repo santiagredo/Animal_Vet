@@ -1,0 +1,25 @@
+[package]
+name = "utils"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+name = "utils"
+path = "src/lib.rs"
+
+[dependencies]
+migration = { path = "../Migration" }
+migration_settings = { path = "../Migration_Settings" }
+sea-orm = { workspace = true }
+serde = { workspace = true }
+actix-web = { workspace = true }
+uuid = { workspace = true }
+actix-session = { workspace = true }
+dotenvy = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-actix-web = { workspace = true }
+tracing-bunyan-formatter = { workspace = true }
+tracing-subscriber = { workspace = true }
+tracing-appender = { workspace = true }
