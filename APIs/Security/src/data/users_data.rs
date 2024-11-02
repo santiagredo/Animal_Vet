@@ -14,7 +14,6 @@ impl UsersDaTa {
         db: &DatabaseConnection,
         user_entity: UserEntity,
     ) -> Outcome<UserEntity, CodeMessage, CodeMessage> {
-
         let mut condition = Condition::all();
 
         if user_entity.user_id != 0 {

@@ -6,6 +6,7 @@ pub mod appointment_events;
 pub mod appointments;
 pub mod days;
 pub mod medical_records;
+pub mod password_reset;
 pub mod pet_events;
 pub mod pet_type_events;
 pub mod pet_types;

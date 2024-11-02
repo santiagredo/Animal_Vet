@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 models = { path = "../Models" }
-models_settings = { path = "../Models_Settings"}
+models_settings = { path = "../Models_Settings" }
 utils = { path = "../Utils" }
 sea-orm = { workspace = true }
 serde = { workspace = true }
@@ -26,6 +26,7 @@ tracing-appender = { workspace = true }
 uuid = { workspace = true }
 openssl = { workspace = true }
 bcrypt = { workspace = true }
+mailgun-rs = { workspace = true }
 
 [dependencies.sea-orm-migration]
 version = "0.12"

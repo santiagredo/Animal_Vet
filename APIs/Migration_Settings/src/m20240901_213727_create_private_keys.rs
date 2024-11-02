@@ -1,3 +1,4 @@
+use openssl::{pkey::PKey, rsa::Rsa};
 // use openssl::{pkey::PKey, rsa::Rsa};
 use sea_orm_migration::prelude::*;
 
@@ -35,27 +36,23 @@ impl MigrationTrait for Migration {
             .unwrap();
 
         // Generate a keypair
-        // let rsa = Rsa::generate(2048).unwrap();
-        // let keypair = PKey::from_rsa(rsa).unwrap();
+        let rsa = Rsa::generate(2048).unwrap();
+        let keypair = PKey::from_rsa(rsa).unwrap();
 
-        // // Private key as pem String
-        // let prv_key = String::from_utf8(keypair.private_key_to_pem_pkcs8().unwrap()).unwrap();
+        // Private key as pem String
+        let prv_key = String::from_utf8(keypair.private_key_to_pem_pkcs8().unwrap()).unwrap();
 
-        // let insert_initial_pkey = Query::insert()
-        //     .into_table(Privkey::Table)
-        //     .columns([Privkey::Key, Privkey::CreationDate, Privkey::IsEnabled])
-        //     .values_panic([
-        //         prv_key.into(),
-        //         Func::cast_as(
-        //             "2024-09-01 00:00:00-5",
-        //             Alias::new("TIMESTAMP"),
-        //         )
-        //         .into(),
-        //         true.into(),
-        //     ])
-        //     .to_owned();
+        let insert_initial_pkey = Query::insert()
+            .into_table(Privkey::Table)
+            .columns([Privkey::Key, Privkey::CreationDate, Privkey::IsEnabled])
+            .values_panic([
+                prv_key.into(),
+                Func::cast_as("2024-09-01 00:00:00-5", Alias::new("TIMESTAMP")).into(),
+                true.into(),
+            ])
+            .to_owned();
 
-        // manager.exec_stmt(insert_initial_pkey).await?;
+        manager.exec_stmt(insert_initial_pkey).await?;
 
         Ok(())
     }

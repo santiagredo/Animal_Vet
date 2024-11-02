@@ -36,3 +36,4 @@ reqwest = { version = "0.12.5", features = ["json", "cookies"] }
 uuid = "1.10.0"
 openssl = "0.10.66"
 bcrypt = "0.15.1"
+mailgun-rs = "0.1.12"

@@ -1,5 +1,5 @@
 use actix_web::web;
-use security::controller::{login, logout};
+use security::controller::{insert_reset_token, login, logout, update_user_password};
 
 use crate::controller::{
     delete_pet, delete_user, insert_pet, insert_user, select_availability, select_pet_types,
@@ -24,5 +24,10 @@ pub fn routes_config(cfg: &mut web::ServiceConfig) {
     .service(web::scope("/pet_types").service(select_pet_types))
     .service(web::scope("/session").service(login).service(logout))
     .service(web::scope("/services").service(select_services))
-    .service(web::scope("/availability").service(select_availability));
+    .service(web::scope("/availability").service(select_availability))
+    .service(
+        web::scope("/password_reset")
+            .service(insert_reset_token)
+            .service(update_user_password),
+    );
 }

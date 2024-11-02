@@ -8,7 +8,7 @@ pub struct Entity;
 
 impl EntityName for Entity {
     fn table_name(&self) -> &str {
-        "privkey"
+        "settings"
     }
 }
 
@@ -16,23 +16,21 @@ impl EntityName for Entity {
     Clone, Debug, PartialEq, DeriveModel, DeriveActiveModel, Eq, Serialize, Deserialize, Default,
 )]
 pub struct Model {
-    pub privkey_id: i32,
-    pub key: Option<String>,
-    pub creation_date: Option<DateTime>,
-    pub is_enabled: Option<bool>,
+    pub id: i32,
+    pub name: String,
+    pub value: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveColumn)]
 pub enum Column {
-    PrivkeyId,
-    Key,
-    CreationDate,
-    IsEnabled,
+    Id,
+    Name,
+    Value,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DerivePrimaryKey)]
 pub enum PrimaryKey {
-    PrivkeyId,
+    Id,
 }
 
 impl PrimaryKeyTrait for PrimaryKey {
@@ -49,10 +47,9 @@ impl ColumnTrait for Column {
     type EntityName = Entity;
     fn def(&self) -> ColumnDef {
         match self {
-            Self::PrivkeyId => ColumnType::Integer.def(),
-            Self::Key => ColumnType::Text.def().null(),
-            Self::CreationDate => ColumnType::DateTime.def().null(),
-            Self::IsEnabled => ColumnType::Boolean.def().null(),
+            Self::Id => ColumnType::Integer.def(),
+            Self::Name => ColumnType::Text.def(),
+            Self::Value => ColumnType::Text.def(),
         }
     }
 }

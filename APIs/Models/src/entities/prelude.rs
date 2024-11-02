@@ -4,6 +4,7 @@ pub use super::appointment_events::Entity as AppointmentEvents;
 pub use super::appointments::Entity as Appointments;
 pub use super::days::Entity as Days;
 pub use super::medical_records::Entity as MedicalRecords;
+pub use super::password_reset::Entity as PasswordReset;
 pub use super::pet_events::Entity as PetEvents;
 pub use super::pet_type_events::Entity as PetTypeEvents;
 pub use super::pet_types::Entity as PetTypes;

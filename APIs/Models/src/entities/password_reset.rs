@@ -8,7 +8,7 @@ pub struct Entity;
 
 impl EntityName for Entity {
     fn table_name(&self) -> &str {
-        "privkey"
+        "password_reset"
     }
 }
 
@@ -16,23 +16,27 @@ impl EntityName for Entity {
     Clone, Debug, PartialEq, DeriveModel, DeriveActiveModel, Eq, Serialize, Deserialize, Default,
 )]
 pub struct Model {
-    pub privkey_id: i32,
-    pub key: Option<String>,
+    pub id: i32,
+    pub user_id: Option<i32>,
     pub creation_date: Option<DateTime>,
     pub is_enabled: Option<bool>,
+    pub update_date: Option<DateTime>,
+    pub token: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveColumn)]
 pub enum Column {
-    PrivkeyId,
-    Key,
+    Id,
+    UserId,
     CreationDate,
     IsEnabled,
+    UpdateDate,
+    Token,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DerivePrimaryKey)]
 pub enum PrimaryKey {
-    PrivkeyId,
+    Id,
 }
 
 impl PrimaryKeyTrait for PrimaryKey {
@@ -43,23 +47,38 @@ impl PrimaryKeyTrait for PrimaryKey {
 }
 
 #[derive(Copy, Clone, Debug, EnumIter)]
-pub enum Relation {}
+pub enum Relation {
+    Users,
+}
 
 impl ColumnTrait for Column {
     type EntityName = Entity;
     fn def(&self) -> ColumnDef {
         match self {
-            Self::PrivkeyId => ColumnType::Integer.def(),
-            Self::Key => ColumnType::Text.def().null(),
+            Self::Id => ColumnType::Integer.def(),
+            Self::UserId => ColumnType::Integer.def().null(),
             Self::CreationDate => ColumnType::DateTime.def().null(),
             Self::IsEnabled => ColumnType::Boolean.def().null(),
+            Self::UpdateDate => ColumnType::DateTime.def().null(),
+            Self::Token => ColumnType::Text.def().null(),
         }
     }
 }
 
 impl RelationTrait for Relation {
     fn def(&self) -> RelationDef {
-        panic!("No RelationDef")
+        match self {
+            Self::Users => Entity::belongs_to(super::users::Entity)
+                .from(Column::UserId)
+                .to(super::users::Column::UserId)
+                .into(),
+        }
+    }
+}
+
+impl Related<super::users::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Users.def()
     }
 }
 

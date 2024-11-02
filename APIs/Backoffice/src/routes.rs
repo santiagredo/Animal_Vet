@@ -1,5 +1,5 @@
 use actix_web::web;
-use security::controller::{login, logout};
+use security::controller::{insert_reset_token, login, logout, update_user_password};
 
 use crate::controller::{
     delete_appointment, delete_pet, delete_service, delete_special_date, delete_unavailable_hours,
@@ -69,5 +69,10 @@ pub fn routes_config(cfg: &mut web::ServiceConfig) {
             .service(select_medical_records),
     )
     .service(web::scope("/availability").service(select_availability))
-    .service(web::scope("/days").service(select_days));
+    .service(web::scope("/days").service(select_days))
+    .service(
+        web::scope("/password_reset")
+            .service(insert_reset_token)
+            .service(update_user_password),
+    );
 }

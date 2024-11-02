@@ -58,6 +58,7 @@ impl PrimaryKeyTrait for PrimaryKey {
 pub enum Relation {
     Appointments,
     MedicalRecords,
+    PasswordReset,
     Pets,
     Sessions,
     UserRoles,
@@ -86,6 +87,7 @@ impl RelationTrait for Relation {
         match self {
             Self::Appointments => Entity::has_many(super::appointments::Entity).into(),
             Self::MedicalRecords => Entity::has_many(super::medical_records::Entity).into(),
+            Self::PasswordReset => Entity::has_many(super::password_reset::Entity).into(),
             Self::Pets => Entity::has_many(super::pets::Entity).into(),
             Self::Sessions => Entity::has_many(super::sessions::Entity).into(),
             Self::UserRoles => Entity::belongs_to(super::user_roles::Entity)
@@ -105,6 +107,12 @@ impl Related<super::appointments::Entity> for Entity {
 impl Related<super::medical_records::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::MedicalRecords.def()
+    }
+}
+
+impl Related<super::password_reset::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::PasswordReset.def()
     }
 }
 

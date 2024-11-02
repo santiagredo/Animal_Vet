@@ -21,6 +21,7 @@ mod m20240706_060542_create_appointment_events;
 mod m20240706_061017_create_medical_records;
 mod m20240807_142445_create_sessions;
 mod m20240807_143628_create_session_events;
+mod m20241031_020452_create_password_reset;
 
 pub struct Migrator;
 
@@ -49,6 +50,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20240706_061017_create_medical_records::Migration),
             Box::new(m20240807_142445_create_sessions::Migration),
             Box::new(m20240807_143628_create_session_events::Migration),
+            Box::new(m20241031_020452_create_password_reset::Migration),
         ]
     }
 }
