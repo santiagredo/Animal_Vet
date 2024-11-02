@@ -39,3 +39,5 @@
     ```sh
     cargo run -- status
     ```
+# commands (cwd: apis/migration_settings)
+# sea-orm-cli migrate generate <NAME___NAME> -d ./
